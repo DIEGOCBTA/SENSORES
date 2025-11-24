@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Sensores IoT</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Gestor de Sensores IoT</h1>
+            <p>Sistema de administración de sensores</p>
+        </header>
+
+        <nav class="navigation">
+            <a href="index.html" class="btn btn-primary active">Ver Sensores</a>
+            <a href="crear.html" class="btn btn-success">Agregar Sensor</a>
+        </nav>
+
+        <main>
+            <div class="card">
+                <div class="card-header">
+                    <h2>Lista de Sensores</h2>
+                    <span id="total-sensores" class="badge">0 sensores</span>
+                </div>
+                
+                <div class="table-container">
+                    <table id="tabla-sensores">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Tipo</th>
+                                <th>Ubicación</th>
+                                <th>Estado</th>
+                                <th>Valor Actual</th>
+                                <th>Fecha Instalación</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-sensores">
+                          
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="mensaje-vacio" class="mensaje-vacio" style="display: none;">
+                    <p>No hay sensores registrados.</p>
+                    <a href="crear.html" class="btn btn-success">Agregar el primer sensor</a>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Cargar sensores al iniciar la PAGINA
+        document.addEventListener('DOMContentLoaded', function() {
+            cargarSensores();
+        });
+    </script>
+</body>
+</html>

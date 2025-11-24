@@ -1,0 +1,119 @@
+<?php
+
+// PAGINA DE CREACIÓN DE SENSORES (PHP)
+
+
+
+require_once 'config.php';
+
+// Manejar mensajes de error
+$mensaje = '';
+$tipoMensaje = '';
+
+if (isset($_GET['error'])) {
+    $mensaje = $_GET['error'];
+    $tipoMensaje = 'error';
+}
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Sensor - Gestor IoT</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Gestor de Sensores IoT</h1>
+            <p>Registrar nuevo sensor</p>
+        </header>
+
+        <nav class="navigation">
+            <a href="index_php.php" class="btn btn-primary">Ver Sensores</a>
+            <a href="crear_php.php" class="btn btn-success active">Agregar Sensor</a>
+            <a href="index.html" class="btn btn-secondary">Versión JavaScript</a>
+        </nav>
+
+        <main>
+            <?php if ($mensaje): ?>
+                <?php mostrarMensaje($mensaje, $tipoMensaje); ?>
+            <?php endif; ?>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2>Nuevo Sensor</h2>
+                </div>
+                
+                <form method="POST" action="procesar.php" class="sensor-form" onsubmit="return validarFormulario(this)">
+                    <input type="hidden" name="accion" value="crear">
+                    
+                    <div class="form-group">
+                        <label for="nombre">Nombre del Sensor: *</label>
+                        <input type="text" id="nombre" name="nombre" required 
+                               onblur="convertirMayusculas(this)" 
+                               oninput="contarCaracteres(this, 'contador-nombre')">
+                        <small id="contador-nombre" class="contador">0 caracteres</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tipo">Tipo de Sensor: *</label>
+                        <select id="tipo" name="tipo" required>
+                            <option value="">Seleccione un tipo</option>
+                            <option value="Temperatura">Temperatura</option>
+                            <option value="Humedad">Humedad</option>
+                            <option value="Presión">Presión</option>
+                            <option value="Movimiento">Movimiento</option>
+                            <option value="Luz">Luz</option>
+                            <option value="Sonido">Sonido</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ubicacion">Ubicación: *</label>
+                        <input type="text" id="ubicacion" name="ubicacion" required 
+                               onblur="convertirMayusculas(this)"
+                               oninput="contarCaracteres(this, 'contador-ubicacion')">
+                        <small id="contador-ubicacion" class="contador">0 caracteres</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="estado">Estado: *</label>
+                        <select id="estado" name="estado" required>
+                            <option value="">Seleccione un estado</option>
+                            <option value="Activo" selected>Activo</option>
+                            <option value="Inactivo">Inactivo</option>
+                            <option value="Mantenimiento">Mantenimiento</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="valor_actual">Valor Actual: *</label>
+                        <input type="number" id="valor_actual" name="valor_actual" 
+                               step="0.01" value="0.00" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fecha_instalacion">Fecha de Instalación: *</label>
+                        <input type="date" id="fecha_instalacion" name="fecha_instalacion" 
+                               value="<?php echo date('Y-m-d'); ?>" required>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success">Guardar Sensor</button>
+                        <a href="index_php.php" class="btn btn-secondary">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Gestor de Sensores IoT - Examen de Programación</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
